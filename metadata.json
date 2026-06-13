@@ -1,0 +1,12 @@
+{
+  "name": "Stripe_MelodyMix AI",
+  "description": "Generate personalized music and songs from text prompts, lyrics, and voice samples. Choose your genre, mood, and instrumentation with specialized AI models.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "Audio Generation",
+    "Voice Personalization",
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

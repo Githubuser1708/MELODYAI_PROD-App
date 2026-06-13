@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Reusable, secure global helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Rule gating subscription collections
+    match /customers/{userId} {
+      allow read: if isSignedIn() && request.auth.uid == userId && isValidId(userId);
+      // Strictly disabled on client SDK. Must only be modified by secure cloud server (Stripe webhook via firebase-admin SDK).
+      allow write: if false;
+    }
+  }
+}

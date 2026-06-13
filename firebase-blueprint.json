@@ -1,0 +1,22 @@
+{
+  "entities": {
+    "Customer": {
+      "title": "Customer",
+      "description": "User customer subscription status",
+      "type": "object",
+      "properties": {
+        "isPaidSubscriber": {
+          "type": "boolean",
+          "description": "Whether the user has a premium paid subscription."
+        }
+      },
+      "required": ["isPaidSubscriber"]
+    }
+  },
+  "firestore": {
+    "/customers/{userId}": {
+      "schema": "Customer",
+      "description": "Premium subscriber checks indexed by user ID."
+    }
+  }
+}
