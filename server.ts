@@ -6,7 +6,7 @@ import Stripe from "stripe";
 import admin from "firebase-admin";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 // Initialize Firebase Admin App lazily and resiliently
 let adminApp: any = null;
@@ -339,7 +339,7 @@ async function initializeAppServer() {
     console.log("Production static build mounted.");
   }
 
-  app.listen(Number(PORT), "0.0.0.0", () => {
+  app.listen(PORT, "0.0.0.0", () => {
     console.log(`Full-stack melody sandbox boot up completely. Accepting traffic on http://localhost:${PORT}`);
   });
 }
