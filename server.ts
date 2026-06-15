@@ -173,7 +173,7 @@ app.post("/api/create-checkout-session", async (req: express.Request, res: expre
           price_data: {
             currency: "usd",
             product: "prod_UhBQ0WMv4IKCWW",
-            unit_amount: 1999, // $19.99 Premium Monthly subscription fallback
+            unit_amount: 500, // $5/month Premium Monthly subscription fallback
             recurring: { interval: "month" as const },
           },
           quantity: 1

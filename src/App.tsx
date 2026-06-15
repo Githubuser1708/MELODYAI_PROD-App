@@ -531,32 +531,18 @@ export default function App() {
                 <Crown className="w-10 h-10 text-orange-500 animate-pulse fill-orange-500/10" />
               </div>
 
-              <h2 className="text-4xl font-bold text-white tracking-tight">Unlock MelodyMix Premium</h2>
+              <h2 className="text-4xl font-bold text-white tracking-tight">MelodyMix Studio</h2>
               <p className="text-zinc-400 text-sm mt-2 max-w-lg mx-auto">
                 Gain instant unrestricted server-side access to premium Lyria-3 models for composition, multi-tracks, vocals, and high fidelity outputs.
               </p>
 
-              {/* Package benefits cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8 text-left">
-                <div className="p-4 bg-zinc-900/40 rounded-xl border border-white/5">
-                  <CheckCircle2 className="w-5 h-5 text-orange-500 mb-2" />
-                  <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono">Lyria-3 Pro Stream</h4>
-                  <p className="text-zinc-500 text-xs mt-1">Unlimited full-duration high fidelity audio streams.</p>
-                </div>
-                <div className="p-4 bg-zinc-900/40 rounded-xl border border-white/5">
-                  <CheckCircle2 className="w-5 h-5 text-orange-500 mb-2" />
-                  <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono">Custom Vocalist Match</h4>
-                  <p className="text-zinc-500 text-xs mt-1">Integrate voice samples seamlessly into tracks on server.</p>
-                </div>
-              </div>
-
-              <div className="bg-zinc-900/60 p-5 rounded-2xl border border-white/5 flex items-center justify-between mb-8 max-w-md mx-auto">
+              <div className="bg-zinc-900/60 p-5 rounded-2xl border border-white/5 flex items-center justify-between my-8 max-w-md mx-auto">
                 <div className="text-left">
                   <p className="text-xs text-zinc-500 uppercase font-mono">Membership Pass</p>
-                  <p className="text-xl font-bold text-white mt-1">Premium Creator</p>
+                  <p className="text-xl font-bold text-white mt-1">Premium Music</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-2xl font-black text-orange-500">$19.99<span className="text-xs text-zinc-500 font-normal"> /mo</span></p>
+                  <p className="text-2xl font-black text-orange-500">$5<span className="text-xs text-zinc-500 font-normal">/month</span></p>
                 </div>
               </div>
 
