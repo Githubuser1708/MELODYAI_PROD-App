@@ -15,9 +15,10 @@ interface ArchiveProps {
   items: ArchiveItem[];
   onPlay: (item: ArchiveItem) => void;
   onDelete: (id: string) => void;
+  onDownload: (item: ArchiveItem) => void;
 }
 
-export default function Archive({ items, onPlay, onDelete }: ArchiveProps) {
+export default function Archive({ items, onPlay, onDelete, onDownload }: ArchiveProps) {
   if (items.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center p-12 text-center opacity-40">
@@ -61,14 +62,14 @@ export default function Archive({ items, onPlay, onDelete }: ArchiveProps) {
                 >
                   <Play className="w-4 h-4 fill-white" />
                 </button>
-                <a
-                  href={item.url}
-                  download={`melody-mix-${item.id}.wav`}
-                  className="p-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-400 transition-all"
+                <button
+                  type="button"
+                  onClick={() => onDownload(item)}
+                  className="p-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-400 transition-all cursor-pointer"
                   title="Download"
                 >
                   <Download className="w-4 h-4" />
-                </a>
+                </button>
                 <button
                   onClick={() => onDelete(item.id)}
                   className="p-2 rounded-lg bg-zinc-800 hover:bg-red-500/20 text-zinc-500 hover:text-red-400 transition-all opacity-0 group-hover:opacity-100"

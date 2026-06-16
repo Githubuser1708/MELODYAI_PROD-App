@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Type, Music2, BrainCircuit, Sliders, ChevronDown, ChevronUp, RefreshCw, AudioWaveform, Upload, Trash2, CheckCircle2 } from 'lucide-react';
+import { Music2, BrainCircuit, Sliders, ChevronDown, ChevronUp, RefreshCw, AudioWaveform, Upload, Trash2, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GENRES, MOODS, INSTRUMENTS } from '../lib/constants';
 
@@ -11,16 +11,15 @@ interface ControlPanelProps {
 export default function ControlPanel({ onGenerate, isLoading }: ControlPanelProps) {
   const [params, setParams] = useState({
     prompt: '',
-    lyrics: '',
     genre: GENRES[0],
     mood: MOODS[0],
     tempo: 120,
     instrumentation: [] as string[],
     duration: 'short' as 'short' | 'full',
+    seed: Math.floor(Math.random() * 1000000).toString(),
   });
 
   const [referenceSong, setReferenceSong] = useState<{ data: string; mimeType: string; name: string } | null>(null);
-  const [showLyrics, setShowLyrics] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const toggleInstrument = (inst: string) => {
@@ -164,38 +163,27 @@ export default function ControlPanel({ onGenerate, isLoading }: ControlPanelProp
             className="w-full accent-orange-600 h-1 bg-zinc-800 rounded-lg cursor-pointer"
           />
         </div>
+
+        {/* Dynamic Variation Seed */}
+        <div className="space-y-2 pt-2 border-t border-white/5">
+          <div className="flex items-center justify-between">
+            <label className="label-title !mb-0">Variation Seed</label>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-mono text-orange-500">#{params.seed}</span>
+              <button
+                type="button"
+                onClick={() => setParams(prev => ({ ...prev, seed: Math.floor(Math.random() * 1000000).toString() }))}
+                className="p-1 hover:text-orange-500 text-zinc-500 rounded-lg hover:bg-zinc-800 transition-all cursor-pointer"
+                title="Randomize seed for a new flavor"
+              >
+                <RefreshCw className="w-3 h-3" />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Toggle Lyrics */}
-      <div className="space-y-2">
-        <button
-          onClick={() => setShowLyrics(!showLyrics)}
-          className="w-full flex items-center justify-between p-3 rounded-xl bg-zinc-900/30 border border-white/5 hover:bg-zinc-900/50 transition-all text-xs font-medium text-zinc-400"
-        >
-          <div className="flex items-center gap-2">
-            <Type className="w-3.5 h-3.5 text-zinc-500" /> Lyrics (Optional)
-          </div>
-          {showLyrics ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-        </button>
-        
-        <AnimatePresence>
-          {showLyrics && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="overflow-hidden"
-            >
-              <textarea
-                value={params.lyrics}
-                onChange={(e) => setParams({ ...params, lyrics: e.target.value })}
-                placeholder="Paste or write your lyrics here..."
-                className="input-primary w-full h-24 mt-2 resize-none text-xs"
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+
 
       {/* Duration & Generate */}
       <div className="space-y-4">
@@ -217,7 +205,14 @@ export default function ControlPanel({ onGenerate, isLoading }: ControlPanelProp
         </div>
 
         <button
-          onClick={() => onGenerate({ ...params, referenceSong })}
+          onClick={() => {
+            onGenerate({ ...params, referenceSong });
+            // Generate a different seed for the next composition, giving the user instant variation
+            setParams(prev => ({
+              ...prev,
+              seed: Math.floor(Math.random() * 1000000).toString()
+            }));
+          }}
           disabled={isLoading || !params.prompt}
           className="btn-primary w-full group relative overflow-hidden py-3"
         >
